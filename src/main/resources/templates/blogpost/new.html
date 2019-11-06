@@ -8,8 +8,9 @@
         rel="stylesheet">
 </head>
 	<body>
-		<p>Please use the form below to submit a Blog Post: </p>
-		<form action="#" th:action="@{/}" th:object="${blogPostProperties}" method="post">
+		<div class="container">
+		<h1>Create a New Blog Post</h1>
+		<form action="#" th:action="@{/blog_posts/new}" th:object="${blogPostProperties}" method="post">
 			<table>
 				<tr>
 					<td>Title:</td>
@@ -28,6 +29,8 @@
 				</tr>
 			</table>
 		</form>
+		
+		</div>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 </body>

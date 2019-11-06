@@ -41,7 +41,7 @@ public class BlogPostController {
 		return "blogpost/new";
 	}
 	
-	@PostMapping(value = "/")
+	@PostMapping(value = "/blog_posts/new")
 	//Set up Method that will take in data entered in the form and add it to the DB
 	//Method will POST info to DB and display "confirmation" on a new html page called "result"
 	public String addNewBlogPost(BlogPostProperties blogPostProperties, Model model) {
@@ -54,4 +54,6 @@ public class BlogPostController {
 		model.addAttribute("blogEntry", blogPostProperties.getBlogEntry());
 		return "blogpost/result";
 	}
+	
+
 }
