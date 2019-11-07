@@ -6,10 +6,14 @@
     	<!-- Latest compiled and minified CSS -->
 		<link href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/standard.css" rel="stylesheet">
+		<div th:replace="/fragments/styling :: head-style" ></div>
 		
 	</head>
 	<body>
+	<div th:replace="fragments/navbar :: navbar" ></div>
+	<div th:replace="/fragments/styling :: body-links" ></div>
 	<div class="container">
+	
 		<h1>Welcome to Our Blog Post Site!</h1>
 
 		<div class="row">
@@ -36,8 +40,8 @@
 			</div>
 		</div>
 
-		<a th:href="@{/blog_posts/new}"><button class="btn btn-primary">Submit
-				a New Blog Post</button></a>
+		<!-- <a th:href="@{/blog_posts/new}"><button class="btn btn-primary">Submit
+				a New Blog Post</button></a> -->
 
 	</div>
 	<script src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>

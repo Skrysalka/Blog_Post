@@ -7,8 +7,13 @@
 		<link href="../../webjars/bootstrap/3.3.7/css/bootstrap.min.css"
         	rel="stylesheet">
         <link href="../../css/standard.css" rel="stylesheet">
+        <div th:replace="/fragments/styling :: head-style" ></div>
+        
 	</head>
 	<body>
+		<div th:replace="fragments/navbar :: navbar" ></div>
+		<div th:replace="/fragments/styling :: body-links" ></div>
+		
 		<div class="container">
 		<h1>Create a New Blog Post</h1>
 		<form action="#" th:action="@{/blog_posts/new}" th:object="${blogPostProperties}" method="post">
