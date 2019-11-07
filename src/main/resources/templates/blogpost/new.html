@@ -12,23 +12,9 @@
 		<div class="container">
 		<h1>Create a New Blog Post</h1>
 		<form action="#" th:action="@{/blog_posts/new}" th:object="${blogPostProperties}" method="post">
-		<!-- 	<table>
-				<tr>
-					<td>Title:</td>
-					<td><input type="text" th:field="*{title}" /></td>
-				</tr>
-				<tr>
-					<td>Author:</td>
-					<td><input type="text" th:field="*{author}" /></td>
-				</tr>
-				<tr>
-					<td>Blog Entry:</td>
-					<td><input type="text" th:field="*{blogEntry}" /></td>
-				</tr>
-				<tr>
-					<td><button type="submit">Submit Your Post</button></td>
-				</tr>
-			</table> -->
+		
+		<!-- Add a hidden form field to handle the update. This solves the new entry every time you update. Before, there was no ID assigned so it would just create a new BlogPost -->
+		<input type="hidden" th:field="*{id}" />
 			
 			<div class="form-group">
  				<input type="text" class="form-control" placeholder="Blog Title..." th:field="*{title}" />
