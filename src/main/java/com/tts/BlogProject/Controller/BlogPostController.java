@@ -30,14 +30,15 @@ public class BlogPostController {
 	@Autowired
 	private BlogPostRepository blogPostRepository;
 	
-	//An ArrayList of BlogPosts called posts
-	private static List<BlogPostProperties> posts = new ArrayList<>();
+	//An ArrayList of BlogPosts called posts thats created in the Application itself, not the DB
+	//private static List<BlogPostProperties> posts = new ArrayList<>();
 	
 	@GetMapping(value="/")
 	//Method named Index that returns a specific template called "index" in the blogpost template directory
 	public String index(BlogPostProperties blogPostProperties, Model model) {
 		//Mistake: model.addAttribute("posts", posts) just displays the posts List and doesnt actually retrieve data from the DB
-		model.addAttribute("posts", blogPostRepository.findAll());
+		//The name "repo" is what you call upon in your index.html to call upon DB and assign to value "blog" so you can subsequently call upon blog.title, blog.title etc
+		model.addAttribute("repo", blogPostRepository.findAll());
 		return "blogpost/index";
 	}
 	
@@ -66,29 +67,25 @@ public class BlogPostController {
 		return "blogpost/new";
 	}
 	
+	@GetMapping("/blog_posts/delete/{id}")
+	public String deletePostById(@PathVariable Long id) {
+		blogPostRepository.deleteById(id);
+		return "redirect:/";
+	}
 	
 	@PostMapping(value = "/blog_posts/new")
 	//Set up Method that will take in data entered in the form and add it to the DB
 	//Method will POST info to DB and display "confirmation" on a new html page called "result"
 	public String addNewBlogPost(BlogPostProperties blogPostProperties, Model model) {
 		//this will save the attributes to the DB through the repository interface
-		blogPostRepository.save(new BlogPostProperties(blogPostProperties.getTitle(), blogPostProperties.getAuthor(), blogPostProperties.getBlogEntry()));
+		//blogPostRepository.save(new BlogPostProperties(blogPostProperties.getTitle(), blogPostProperties.getAuthor(), blogPostProperties.getBlogEntry()));
 		//Every new blog post will be added to the "posts" ArrayList
-		posts.add(blogPostProperties);
+		//posts.add(blogPostProperties);
+		blogPostRepository.save(blogPostProperties);
 		model.addAttribute("title", blogPostProperties.getTitle());
 		model.addAttribute("author", blogPostProperties.getAuthor());
 		model.addAttribute("blogEntry", blogPostProperties.getBlogEntry());
 		return "blogpost/result";
 	}
 	
-	
-
-	
-	
-	
-	
-	
-	
-	
-
 }
