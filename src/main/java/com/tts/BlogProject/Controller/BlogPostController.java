@@ -2,12 +2,16 @@ package com.tts.BlogProject.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tts.BlogProject.Model.BlogPostProperties;
 import com.tts.BlogProject.Repository.BlogPostRepository;
@@ -32,7 +36,8 @@ public class BlogPostController {
 	@GetMapping(value="/")
 	//Method named Index that returns a specific template called "index" in the blogpost template directory
 	public String index(BlogPostProperties blogPostProperties, Model model) {
-		model.addAttribute("posts", posts);
+		//Mistake: model.addAttribute("posts", posts) just displays the posts List and doesnt actually retrieve data from the DB
+		model.addAttribute("posts", blogPostRepository.findAll());
 		return "blogpost/index";
 	}
 	
@@ -40,6 +45,27 @@ public class BlogPostController {
 	public String newBlog (BlogPostProperties blogPostProperties) {
 		return "blogpost/new";
 	}
+	
+	//Get the Post. Path Variable extracts the {id} and assign it to Long id
+	@GetMapping(value="/blog_posts/update/{id}")
+	public String updateBlogPost(@PathVariable Long id, Model model) {
+		//Optional means that it might find the result but it might not
+		Optional<BlogPostProperties> result = blogPostRepository.findById(id);
+		BlogPostProperties blogPostProperties = null;
+		
+		//check if result aka id exist, True
+		if(result.isPresent()) {
+			blogPostProperties = result.get();
+		} else {
+			throw new RuntimeException("Did not find post id" + id);
+		}
+		
+		//Set the post as a model attribute
+		model.addAttribute("blogPostProperties", blogPostProperties);
+		//send it across to form
+		return "blogpost/new";
+	}
+	
 	
 	@PostMapping(value = "/blog_posts/new")
 	//Set up Method that will take in data entered in the form and add it to the DB
@@ -54,6 +80,15 @@ public class BlogPostController {
 		model.addAttribute("blogEntry", blogPostProperties.getBlogEntry());
 		return "blogpost/result";
 	}
+	
+	
+
+	
+	
+	
+	
+	
+	
 	
 
 }

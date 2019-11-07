@@ -20,7 +20,7 @@ public class BlogPostProperties {
 	
 	
 	public BlogPostProperties() {
-		//non-arg constructor needed for JPA
+		//non-arg constructor
 	}
 	
 	//All Arg Constructor: BlogPost must be created with title, author, and blogEntry
@@ -51,8 +51,16 @@ public class BlogPostProperties {
 		return blogEntry;
 	}
 
+
 	public void setBlogEntry(String blogEntry) {
 		this.blogEntry = blogEntry;
+	}
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	//prints out the value of the Object(BlogPost) instead of its reference point Hashcode
